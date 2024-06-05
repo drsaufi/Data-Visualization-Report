@@ -1,0 +1,379 @@
+---
+title: "Graph"
+format: html
+editor: visual
+---
+
+```{r}
+# Load necessary libraries
+library(ggplot2)
+
+# Scatter plot
+ggplot(nh_data, aes(x = scorewc, y = scorepom)) +
+  geom_point() +
+  labs(title = "Scatter Plot of Working Condition vs. Perceived Good Management",
+       x = "Score of Working Condition",
+       y = "Score of Perceived Good Management")
+```
+
+```{r}
+# Scatter plot with smooth line
+ggplot(nh_data, aes(x = scorewc, y = scorepom)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Scatter Plot with Smooth Line",
+       x = "Score of Working Condition",
+       y = "Score of Perceived Good Management")
+```
+
+```{r}
+# Faceted scatter plot
+ggplot(nh_data, aes(x = scorewc, y = scorepom)) +
+  geom_point() +
+  facet_wrap(~ nhid) +
+  labs(title = "Faceted Scatter Plot by Nursing Home",
+       x = "Score of Working Condition",
+       y = "Score of Perceived Good Management")
+```
+
+```{r}
+# Bar plot for status
+ggplot(nh_data, aes(x = status)) +
+  geom_bar() +
+  labs(title = "Bar Plot of Positions",
+       x = "Position",
+       y = "Count")
+```
+
+```{r}
+# Histogram for scorewc
+ggplot(nh_data, aes(x = scorewc)) +
+  geom_histogram(binwidth = 5) +
+  labs(title = "Histogram of Working Condition Scores",
+       x = "Score of Working Condition",
+       y = "Count")
+
+```
+
+```{r}
+# Combined histogram by status
+ggplot(nh_data, aes(x = scorewc, fill = status)) +
+  geom_histogram(binwidth = 5, position = "dodge") +
+  labs(title = "Histogram of Working Condition Scores by Position",
+       x = "Score of Working Condition",
+       y = "Count")
+```
+
+```{r}
+# Box plot for scorewc by nursing home
+ggplot(nh_data, aes(x = nhid, y = scorewc)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Working Condition Scores by Nursing Home",
+       x = "Nursing Home",
+       y = "Score of Working Condition")
+```
+
+```{r}
+# Load necessary libraries
+library(GGally)
+library(ggplot2)
+
+# Pair plot
+ggpairs(nh_data, 
+        columns = c("scorewc", "scorepom"),
+        aes(color = nhid),
+        title = "Pair Plot of Scores")
+```
+
+```{r}
+# Box plot for scorewc by nursing home
+ggplot(nh_data, aes(x = nhid, y = scorewc, fill = nhid)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Working Condition Scores by Nursing Home",
+       x = "Nursing Home",
+       y = "Score of Working Condition")
+
+# Box plot for scorepom by nursing home
+ggplot(nh_data, aes(x = nhid, y = scorepom, fill = nhid)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Perceived Good Management Scores by Nursing Home",
+       x = "Nursing Home",
+       y = "Score of Perceived Good Management")
+
+# Box plot for scorewc by status
+ggplot(nh_data, aes(x = status, y = scorewc, fill = status)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Working Condition Scores by Status",
+       x = "Position",
+       y = "Score of Working Condition")
+
+# Box plot for scorepom by status
+ggplot(nh_data, aes(x = status, y = scorepom, fill = status)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Perceived Good Management Scores by Status",
+       x = "Position",
+       y = "Score of Perceived Good Management")
+```
+
+```{r}
+# Histogram for scorewc
+ggplot(nh_data, aes(x = scorewc)) +
+  geom_histogram(binwidth = 5, fill = "blue", alpha = 0.7) +
+  labs(title = "Histogram of Working Condition Scores",
+       x = "Score of Working Condition",
+       y = "Count")
+
+# Histogram for scorepom
+ggplot(nh_data, aes(x = scorepom)) +
+  geom_histogram(binwidth = 5, fill = "green", alpha = 0.7) +
+  labs(title = "Histogram of Perceived Good Management Scores",
+       x = "Score of Perceived Good Management",
+       y = "Count")
+```
+
+```{r}
+# Pair plot
+ggpairs(nh_data, 
+        columns = c("scorewc", "scorepom"),
+        aes(color = nhid),
+        title = "Pair Plot of Scores")
+```
+
+```{r}
+# Box plot for scorewc by nursing home
+ggplot(nh_data, aes(x = nhid, y = scorewc, fill = nhid)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Working Condition Scores by Nursing Home",
+       x = "Nursing Home",
+       y = "Score of Working Condition")
+
+# Box plot for scorepom by nursing home
+ggplot(nh_data, aes(x = nhid, y = scorepom, fill = nhid)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Perceived Good Management Scores by Nursing Home",
+       x = "Nursing Home",
+       y = "Score of Perceived Good Management")
+
+# Box plot for scorewc by status
+ggplot(nh_data, aes(x = status, y = scorewc, fill = status)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Working Condition Scores by Status",
+       x = "Position",
+       y = "Score of Working Condition")
+
+# Box plot for scorepom by status
+ggplot(nh_data, aes(x = status, y = scorepom, fill = status)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Perceived Good Management Scores by Status",
+       x = "Position",
+       y = "Score of Perceived Good Management")
+
+```
+
+```{r}
+# Create a parallel coordinates plot
+ggplot(nh_data, aes(x = scorewc, y = scorepom, color = status, shape = mothert)) +
+  geom_point(size = 3, alpha = 0.7) +
+  facet_wrap(~ nhid) +
+  labs(title = "Scatter Plot of Working Condition vs. Perceived Good Management",
+       x = "Score of Working Condition",
+       y = "Score of Perceived Good Management",
+       color = "Position",
+       shape = "Norwegian Mother Tongue") +
+  theme_minimal()
+```
+
+```{r}
+# Scatter plot
+scatter_plot <- ggplot(nh_data, aes(x = scorewc, y = scorepom, color = status, shape = mothert)) +
+  geom_point(size = 3, alpha = 0.7) +
+  labs(title = "Scatter Plot", x = "Score of Working Condition", y = "Score of Perceived Good Management") +
+  theme_minimal()
+
+# Histogram for scorewc
+hist_wc <- ggplot(nh_data, aes(x = scorewc, fill = status)) +
+  geom_histogram(binwidth = 5, alpha = 0.7) +
+  labs(title = "Histogram of Working Condition Scores", x = "Score of Working Condition", y = "Count") +
+  theme_minimal()
+
+# Histogram for scorepom
+hist_pom <- ggplot(nh_data, aes(x = scorepom, fill = status)) +
+  geom_histogram(binwidth = 5, alpha = 0.7) +
+  labs(title = "Histogram of Perceived Good Management Scores", x = "Score of Perceived Good Management", y = "Count") +
+  theme_minimal()
+
+# Bar plot for nhid
+bar_nhid <- ggplot(nh_data, aes(x = nhid, fill = nhid)) +
+  geom_bar() +
+  labs(title = "Bar Plot of Nursing Homes", x = "Nursing Home", y = "Count") +
+  theme_minimal()
+
+# Combine all plots into one layout
+combined_plot <- scatter_plot / (hist_wc + hist_pom) / bar_nhid
+
+# Display the combined plot
+combined_plot
+```
+
+```{r}
+# Load necessary libraries
+library(ggplot2)
+library(patchwork)
+
+# Create box plot for Score of Working Condition
+box_plot_wc <- ggplot(nh_data, aes(x = nhid, y = scorewc, fill = nhid)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Working Condition Scores by Nursing Home",
+       x = "Nursing Home",
+       y = "Score of Working Condition") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set3")
+
+# Create box plot for Score of Perceived Good Management
+box_plot_pom <- ggplot(nh_data, aes(x = nhid, y = scorepom, fill = nhid)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Perceived Good Management Scores by Nursing Home",
+       x = "Nursing Home",
+       y = "Score of Perceived Good Management") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set3")
+
+# Combine both plots using patchwork
+combined_plot <- box_plot_wc / box_plot_pom
+
+# Display the combined plot
+print(combined_plot)
+```
+
+```{r}
+# Create a colorful box plot for Working Condition Scores
+ggplot(nh_data, aes(x = nhid, y = scorewc, fill = nhid)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Working Condition Scores by Nursing Home",
+       x = "Nursing Home",
+       y = "Score of Working Condition") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set3")
+
+# Create a colorful box plot for Perceived Good Management Scores
+ggplot(nh_data, aes(x = nhid, y = scorepom, fill = nhid)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Perceived Good Management Scores by Nursing Home",
+       x = "Nursing Home",
+       y = "Score of Perceived Good Management") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set3")
+
+```
+
+```{r}
+# Create summary table
+summary_table <- nh_data %>%
+  group_by(nhid) %>%
+  summarize(
+    count = n(),
+    mean_scorewc = mean(scorewc, na.rm = TRUE),
+    mean_scorepom = mean(scorepom, na.rm = TRUE),
+    median_scorewc = median(scorewc, na.rm = TRUE),
+    median_scorepom = median(scorepom, na.rm = TRUE)
+  )
+
+# Print summary table
+print(summary_table)
+```
+
+```{r}
+ggplot(nh_data, aes(x = nhid, fill = interaction(status, mothert))) +
+  geom_bar(position = "dodge") +
+  labs(title = "Grouped Bar Plot of Position and Norwegian Mother Tongue Across Nursing Homes",
+       x = "Nursing Home",
+       y = "Count",
+       fill = "Position and Mother Tongue") +
+  theme_minimal() +
+  scale_fill_manual(values = c("#F8766D", "#00BA38", "#619CFF", "#F564E3"))
+
+```
+
+```{r}
+# Grouped bar plot for Position (status) and Norwegian Mother Tongue (mothert)
+grouped_bar_plot <- ggplot(nh_data, aes(x = nhid, fill = interaction(status, mothert))) +
+  geom_bar(position = "dodge") +
+  labs(title = "Grouped Bar Plot of Position and Norwegian Mother Tongue Across Nursing Homes",
+       x = "Nursing Home",
+       y = "Count",
+       fill = "Position and Mother Tongue") +
+  theme_minimal() +
+  scale_fill_manual(values = c("#F8766D", "#00BA38", "#619CFF", "#F564E3"))
+
+# Bar plot for nursing home counts
+ggplot(nh_data, aes(x = nhid)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Bar Plot of Nursing Home Counts",
+       x = "Nursing Home",
+       y = "Count") +
+  theme_minimal()
+
+# Combine the plots using patchwork
+combined_plot <- nursing_home_counts / grouped_bar_plot
+
+# Display the combined plot
+print(combined_plot)
+```
+
+```{r}
+# Scatter plot for Score of Working Condition vs. Score of Perceived Good Management
+scatter_plot <- ggplot(nh_data, aes(x = scorewc, y = scorepom)) +
+  geom_point(size = 3, alpha = 0.7) +
+  facet_wrap(~ nhid) +
+  labs(title = "Score of Working Condition vs. Score of Perceived Good Management Across Nursing Homes",
+       x = "Score of Working Condition",
+       y = "Score of Perceived Good Management") +
+  theme_minimal()
+
+# Display the scatter plot
+print(scatter_plot)
+```
+
+```{r}
+# Colored scatter plot for Score of Working Condition vs. Score of Perceived Good Management
+colored_scatter_plot <- ggplot(nh_data, aes(x = scorewc, y = scorepom, color = nhid)) +
+  geom_point(size = 3, alpha = 0.7) +
+  labs(title = "Score of Working Condition vs. Score of Perceived Good Management Across Nursing Homes",
+       x = "Score of Working Condition",
+       y = "Score of Perceived Good Management",
+       color = "Nursing Home") +
+  theme_minimal()
+
+# Display the scatter plot
+print(colored_scatter_plot)
+```
+
+```{r}
+# Scatter plot with smooth lines for Score of Working Condition vs. Score of Perceived Good Management
+scatter_plot_with_smooth <- ggplot(nh_data, aes(x = scorewc, y = scorepom, color = nhid)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Score of Working Condition vs. Score of Perceived Good Management Across Nursing Homes",
+       x = "Score of Working Condition",
+       y = "Score of Perceived Good Management",
+       color = "Nursing Home") +
+  theme_minimal()
+
+# Display the scatter plot with smooth lines
+print(scatter_plot_with_smooth)
+```
+
+```{r}
+# Density plot for Score of Working Condition vs. Score of Perceived Good Management
+density_plot <- ggplot(nh_data, aes(x = scorewc, y = scorepom, color = nhid)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_density2d() +
+  labs(title = "Density Plot of Working Condition vs. Perceived Good Management Scores",
+       x = "Score of Working Condition",
+       y = "Score of Perceived Good Management",
+       color = "Nursing Home") +
+  theme_minimal()
+
+# Display the density plot
+print(density_plot)
+```

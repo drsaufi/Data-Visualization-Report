@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="DrPH Epidemiology 2023/2024">
+<meta name="dcterms.date" content="2024-06-05">
+
+<title>Data Visualization Assignment</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Data Visualization Assignment_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Data Visualization Assignment_files/libs/quarto-html/quarto.js"></script>
+<script src="Data Visualization Assignment_files/libs/quarto-html/popper.min.js"></script>
+<script src="Data Visualization Assignment_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Data Visualization Assignment_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Data Visualization Assignment_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Data Visualization Assignment_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Data Visualization Assignment_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Data Visualization Assignment_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Data Visualization Assignment_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="1">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
+  <li><a href="#overview-of-the-dataset" id="toc-overview-of-the-dataset" class="nav-link" data-scroll-target="#overview-of-the-dataset">Overview of the Dataset</a></li>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries">Libraries</a></li>
+  <li><a href="#read-dataset" id="toc-read-dataset" class="nav-link" data-scroll-target="#read-dataset">Read Dataset</a></li>
+  <li><a href="#change-characters-into-factors" id="toc-change-characters-into-factors" class="nav-link" data-scroll-target="#change-characters-into-factors">Change Characters Into Factors</a></li>
+  <li><a href="#convert-numerical-variables-into-categorical-variables" id="toc-convert-numerical-variables-into-categorical-variables" class="nav-link" data-scroll-target="#convert-numerical-variables-into-categorical-variables">Convert Numerical Variables Into Categorical Variables</a></li>
+  <li><a href="#dataset-with-selected-variables" id="toc-dataset-with-selected-variables" class="nav-link" data-scroll-target="#dataset-with-selected-variables">Dataset with Selected Variables</a></li>
+  <li><a href="#descriptive-table" id="toc-descriptive-table" class="nav-link" data-scroll-target="#descriptive-table">Descriptive Table</a></li>
+  </ul></li>
+  <li><a href="#data-visualization-methods" id="toc-data-visualization-methods" class="nav-link" data-scroll-target="#data-visualization-methods">Data Visualization Methods</a>
+  <ul class="collapse">
+  <li><a href="#bar-plot" id="toc-bar-plot" class="nav-link" data-scroll-target="#bar-plot">Bar Plot</a>
+  <ul class="collapse">
+  <li><a href="#figure-1" id="toc-figure-1" class="nav-link" data-scroll-target="#figure-1">Figure 1</a></li>
+  </ul></li>
+  <li><a href="#box-plot" id="toc-box-plot" class="nav-link" data-scroll-target="#box-plot">Box Plot</a>
+  <ul class="collapse">
+  <li><a href="#figure-2" id="toc-figure-2" class="nav-link" data-scroll-target="#figure-2">Figure 2</a></li>
+  </ul></li>
+  <li><a href="#scatter-plot" id="toc-scatter-plot" class="nav-link" data-scroll-target="#scatter-plot">Scatter Plot</a>
+  <ul class="collapse">
+  <li><a href="#figure-3" id="toc-figure-3" class="nav-link" data-scroll-target="#figure-3">Figure 3</a></li>
+  <li><a href="#figure-4" id="toc-figure-4" class="nav-link" data-scroll-target="#figure-4">Figure 4</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#result-interpretation" id="toc-result-interpretation" class="nav-link" data-scroll-target="#result-interpretation">Result Interpretation</a></li>
+  <li><a href="#recommendations" id="toc-recommendations" class="nav-link" data-scroll-target="#recommendations">Recommendations</a></li>
+  <li><a href="#report-prepared-by" id="toc-report-prepared-by" class="nav-link" data-scroll-target="#report-prepared-by">Report Prepared By</a></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Data-Visualization-Assignment.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="Data Visualization Assignment.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data Visualization Assignment</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>DrPH Epidemiology 2023/2024 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 5, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<section id="purpose" class="level2">
+<h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
+<p>The purpose of this assignment is to provide data visualization analysis of the working conditions and perceived management quality within five nursing homes in Norway. This analysis aims to offer insights into the current state of the workforce, highlight areas of strength, and identify opportunities for improvement.</p>
+</section>
+<section id="overview-of-the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="overview-of-the-dataset">Overview of the Dataset</h2>
+<p>The dataset comprises information from 288 participants distributed across five nursing homes in Norway. This hierarchical dataset includes two levels of sampling: individual staff members (Level 1) and the nursing homes they belong to (Level 2). The variables in this dataset are as follows:</p>
+<ul>
+<li><p>Nursing Home ID (<code>nhid</code>): Identifies the nursing home to which each staff member belongs (Nursing Home 1 to Nursing Home 5).</p></li>
+<li><p>Position (<code>status</code>): Indicates whether a staff member holds a permanent or intermediate position.</p></li>
+<li><p>Norwegian Mother Tongue (<code>mother</code>): Specifies whether a staff member’s mother tongue is Norwegian (Yes or No).</p></li>
+<li><p>Score of Working Condition (<code>scorewc</code>): Reflects staff members’ perceptions of their working conditions, with higher scores indicating more favorable conditions.</p></li>
+<li><p>Score of Perceived Good Management (<code>scorepom</code>): Reflects staff members’ perceptions of management quality, with higher scores indicating more favorable perceptions.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Flowchart.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="libraries" class="level2">
+<h2 class="anchored" data-anchor-id="libraries">Libraries</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'summarytools'
+
+The following object is masked from 'package:tibble':
+
+    view</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2</code></pre>
+</div>
+</div>
+</section>
+<section id="read-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="read-dataset">Read Dataset</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>nursing_homes <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">"nursing_homes.sav"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nursing_homes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     nhid                job              age            gender  
+ Length:288         Min.   : 2.000   Min.   :1.000   Min.   :1   
+ Class :character   1st Qu.: 2.000   1st Qu.:1.000   1st Qu.:2   
+ Mode  :character   Median : 3.000   Median :1.000   Median :3   
+                    Mean   : 3.217   Mean   :1.062   Mean   :3   
+                    3rd Qu.: 3.000   3rd Qu.:1.000   3rd Qu.:4   
+                    Max.   :10.000   Max.   :2.000   Max.   :5   
+                    NA's   :25       NA's   :31      NA's   :24  
+ workexperience      worknh         shift           change          status     
+ Min.   :1.000   Min.   :1.00   Min.   :1.000   Min.   :2.000   Min.   :1.000  
+ 1st Qu.:2.000   1st Qu.:2.00   1st Qu.:4.000   1st Qu.:3.000   1st Qu.:1.000  
+ Median :3.500   Median :3.00   Median :4.000   Median :4.000   Median :1.000  
+ Mean   :3.338   Mean   :2.84   Mean   :3.857   Mean   :4.019   Mean   :1.163  
+ 3rd Qu.:4.000   3rd Qu.:4.00   3rd Qu.:5.000   3rd Qu.:5.000   3rd Qu.:1.000  
+ Max.   :6.000   Max.   :6.00   Max.   :6.000   Max.   :5.000   Max.   :2.000  
+ NA's   :22      NA's   :20     NA's   :44      NA's   :31                     
+    mothert         scorewc           scorepom     
+ Min.   :1.000   Min.   :  8.333   Min.   :  6.25  
+ 1st Qu.:1.000   1st Qu.: 51.455   1st Qu.: 50.00  
+ Median :1.000   Median : 65.000   Median : 75.00  
+ Mean   :1.191   Mean   : 64.579   Mean   : 68.67  
+ 3rd Qu.:1.000   3rd Qu.: 75.007   3rd Qu.: 91.67  
+ Max.   :2.000   Max.   :100.000   Max.   :100.00  
+                                                   </code></pre>
+</div>
+</div>
+</section>
+<section id="change-characters-into-factors" class="level2">
+<h2 class="anchored" data-anchor-id="change-characters-into-factors">Change Characters Into Factors</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>nursing_homes <span class="ot">&lt;-</span> nursing_homes <span class="sc">%&gt;%</span> <span class="fu">mutate_if</span>(is.character, as.factor)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nursing_homes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> nhid        job              age            gender   workexperience 
+ 1:39   Min.   : 2.000   Min.   :1.000   Min.   :1    Min.   :1.000  
+ 2:29   1st Qu.: 2.000   1st Qu.:1.000   1st Qu.:2    1st Qu.:2.000  
+ 3:95   Median : 3.000   Median :1.000   Median :3    Median :3.500  
+ 4:70   Mean   : 3.217   Mean   :1.062   Mean   :3    Mean   :3.338  
+ 5:55   3rd Qu.: 3.000   3rd Qu.:1.000   3rd Qu.:4    3rd Qu.:4.000  
+        Max.   :10.000   Max.   :2.000   Max.   :5    Max.   :6.000  
+        NA's   :25       NA's   :31      NA's   :24   NA's   :22     
+     worknh         shift           change          status         mothert     
+ Min.   :1.00   Min.   :1.000   Min.   :2.000   Min.   :1.000   Min.   :1.000  
+ 1st Qu.:2.00   1st Qu.:4.000   1st Qu.:3.000   1st Qu.:1.000   1st Qu.:1.000  
+ Median :3.00   Median :4.000   Median :4.000   Median :1.000   Median :1.000  
+ Mean   :2.84   Mean   :3.857   Mean   :4.019   Mean   :1.163   Mean   :1.191  
+ 3rd Qu.:4.00   3rd Qu.:5.000   3rd Qu.:5.000   3rd Qu.:1.000   3rd Qu.:1.000  
+ Max.   :6.00   Max.   :6.000   Max.   :5.000   Max.   :2.000   Max.   :2.000  
+ NA's   :20     NA's   :44      NA's   :31                                     
+    scorewc           scorepom     
+ Min.   :  8.333   Min.   :  6.25  
+ 1st Qu.: 51.455   1st Qu.: 50.00  
+ Median : 65.000   Median : 75.00  
+ Mean   : 64.579   Mean   : 68.67  
+ 3rd Qu.: 75.007   3rd Qu.: 91.67  
+ Max.   :100.000   Max.   :100.00  
+                                   </code></pre>
+</div>
+</div>
+</section>
+<section id="convert-numerical-variables-into-categorical-variables" class="level2">
+<h2 class="anchored" data-anchor-id="convert-numerical-variables-into-categorical-variables">Convert Numerical Variables Into Categorical Variables</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert nhid to categorical variable</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>nursing_homes<span class="sc">$</span>nhid <span class="ot">&lt;-</span> <span class="fu">factor</span>(nursing_homes<span class="sc">$</span>nhid, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Nursing Home 1"</span>, <span class="st">"Nursing Home 2"</span>, <span class="st">"Nursing Home 3"</span>, <span class="st">"Nursing Home 4"</span>, <span class="st">"Nursing Home 5"</span>))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert status to categorical variable</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>nursing_homes<span class="sc">$</span>status <span class="ot">&lt;-</span> <span class="fu">factor</span>(nursing_homes<span class="sc">$</span>status, </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Permanent"</span>, <span class="st">"Intermediate"</span>))</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert mother to categorical variable</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>nursing_homes<span class="sc">$</span>mothert <span class="ot">&lt;-</span> <span class="fu">factor</span>(nursing_homes<span class="sc">$</span>mothert, </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                    <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Yes"</span>, <span class="st">"No"</span>))</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># View updated dataset</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nursing_homes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             nhid         job              age            gender  
+ Nursing Home 1:39   Min.   : 2.000   Min.   :1.000   Min.   :1   
+ Nursing Home 2:29   1st Qu.: 2.000   1st Qu.:1.000   1st Qu.:2   
+ Nursing Home 3:95   Median : 3.000   Median :1.000   Median :3   
+ Nursing Home 4:70   Mean   : 3.217   Mean   :1.062   Mean   :3   
+ Nursing Home 5:55   3rd Qu.: 3.000   3rd Qu.:1.000   3rd Qu.:4   
+                     Max.   :10.000   Max.   :2.000   Max.   :5   
+                     NA's   :25       NA's   :31      NA's   :24  
+ workexperience      worknh         shift           change     
+ Min.   :1.000   Min.   :1.00   Min.   :1.000   Min.   :2.000  
+ 1st Qu.:2.000   1st Qu.:2.00   1st Qu.:4.000   1st Qu.:3.000  
+ Median :3.500   Median :3.00   Median :4.000   Median :4.000  
+ Mean   :3.338   Mean   :2.84   Mean   :3.857   Mean   :4.019  
+ 3rd Qu.:4.000   3rd Qu.:4.00   3rd Qu.:5.000   3rd Qu.:5.000  
+ Max.   :6.000   Max.   :6.00   Max.   :6.000   Max.   :5.000  
+ NA's   :22      NA's   :20     NA's   :44      NA's   :31     
+          status    mothert      scorewc           scorepom     
+ Permanent   :241   Yes:233   Min.   :  8.333   Min.   :  6.25  
+ Intermediate: 47   No : 55   1st Qu.: 51.455   1st Qu.: 50.00  
+                              Median : 65.000   Median : 75.00  
+                              Mean   : 64.579   Mean   : 68.67  
+                              3rd Qu.: 75.007   3rd Qu.: 91.67  
+                              Max.   :100.000   Max.   :100.00  
+                                                                </code></pre>
+</div>
+</div>
+</section>
+<section id="dataset-with-selected-variables" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-with-selected-variables">Dataset with Selected Variables</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nh_data <span class="ot">&lt;-</span> nursing_homes <span class="sc">%&gt;%</span> <span class="fu">select</span>(nhid, status, mothert, scorewc, scorepom)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nh_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             nhid             status    mothert      scorewc       
+ Nursing Home 1:39   Permanent   :241   Yes:233   Min.   :  8.333  
+ Nursing Home 2:29   Intermediate: 47   No : 55   1st Qu.: 51.455  
+ Nursing Home 3:95                                Median : 65.000  
+ Nursing Home 4:70                                Mean   : 64.579  
+ Nursing Home 5:55                                3rd Qu.: 75.007  
+                                                  Max.   :100.000  
+    scorepom     
+ Min.   :  6.25  
+ 1st Qu.: 50.00  
+ Median : 75.00  
+ Mean   : 68.67  
+ 3rd Qu.: 91.67  
+ Max.   :100.00  </code></pre>
+</div>
+</div>
+</section>
+<section id="descriptive-table" class="level2">
+<h2 class="anchored" data-anchor-id="descriptive-table">Descriptive Table</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the descriptive table</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>table_summary <span class="ot">&lt;-</span> nh_data <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> nhid,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">list</span>(</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({sd})"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="st">"{n} ({p}%)"</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_overall</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_header</span>(label <span class="sc">~</span> <span class="st">"**Variable**"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_spanning_header</span>(</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">all_stat_cols</span>() <span class="sc">~</span> <span class="st">"**Summary Statistics**"</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_caption</span>(<span class="st">"**Descriptive Statistics of Nursing Homes Dataset**"</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the table</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>table_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<div id="wtwprcfjis" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wtwprcfjis table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#wtwprcfjis thead, #wtwprcfjis tbody, #wtwprcfjis tfoot, #wtwprcfjis tr, #wtwprcfjis td, #wtwprcfjis th {
+  border-style: none;
+}
+
+#wtwprcfjis p {
+  margin: 0;
+  padding: 0;
+}
+
+#wtwprcfjis .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wtwprcfjis .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#wtwprcfjis .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wtwprcfjis .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#wtwprcfjis .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wtwprcfjis .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wtwprcfjis .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wtwprcfjis .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wtwprcfjis .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wtwprcfjis .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wtwprcfjis .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wtwprcfjis .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wtwprcfjis .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#wtwprcfjis .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#wtwprcfjis .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wtwprcfjis .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wtwprcfjis .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wtwprcfjis .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wtwprcfjis .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wtwprcfjis .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#wtwprcfjis .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#wtwprcfjis .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#wtwprcfjis .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wtwprcfjis .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#wtwprcfjis .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#wtwprcfjis .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wtwprcfjis .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wtwprcfjis .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wtwprcfjis .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wtwprcfjis .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wtwprcfjis .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wtwprcfjis .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wtwprcfjis .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wtwprcfjis .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wtwprcfjis .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wtwprcfjis .gt_left {
+  text-align: left;
+}
+
+#wtwprcfjis .gt_center {
+  text-align: center;
+}
+
+#wtwprcfjis .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wtwprcfjis .gt_font_normal {
+  font-weight: normal;
+}
+
+#wtwprcfjis .gt_font_bold {
+  font-weight: bold;
+}
+
+#wtwprcfjis .gt_font_italic {
+  font-style: italic;
+}
+
+#wtwprcfjis .gt_super {
+  font-size: 65%;
+}
+
+#wtwprcfjis .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#wtwprcfjis .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#wtwprcfjis .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#wtwprcfjis .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#wtwprcfjis .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#wtwprcfjis .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#wtwprcfjis .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<caption><strong>Descriptive Statistics of Nursing Homes Dataset</strong></caption>
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header gt_col_headings gt_spanner_row">
+<th rowspan="2" id="<strong>Variable</strong>" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Variable</strong></th>
+<th colspan="6" id="<strong>Summary Statistics</strong>" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><span class="gt_column_spanner"><strong>Summary Statistics</strong></span></th>
+</tr>
+<tr class="odd gt_col_headings">
+<th id="<strong>Overall</strong>, N = 288<span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>1</sup></span>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Overall</strong>, N = 288<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
+<th id="<strong>Nursing Home 1</strong>, N = 39<span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>1</sup></span>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Nursing Home 1</strong>, N = 39<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
+<th id="<strong>Nursing Home 2</strong>, N = 29<span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>1</sup></span>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Nursing Home 2</strong>, N = 29<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
+<th id="<strong>Nursing Home 3</strong>, N = 95<span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>1</sup></span>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Nursing Home 3</strong>, N = 95<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
+<th id="<strong>Nursing Home 4</strong>, N = 70<span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>1</sup></span>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Nursing Home 4</strong>, N = 70<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
+<th id="<strong>Nursing Home 5</strong>, N = 55<span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>1</sup></span>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>Nursing Home 5</strong>, N = 55<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">status</td>
+<td class="gt_row gt_center" headers="stat_0"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_3"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_4"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_5"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Permanent</td>
+<td class="gt_row gt_center" headers="stat_0">241 (84%)</td>
+<td class="gt_row gt_center" headers="stat_1">31 (79%)</td>
+<td class="gt_row gt_center" headers="stat_2">25 (86%)</td>
+<td class="gt_row gt_center" headers="stat_3">79 (83%)</td>
+<td class="gt_row gt_center" headers="stat_4">56 (80%)</td>
+<td class="gt_row gt_center" headers="stat_5">50 (91%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Intermediate</td>
+<td class="gt_row gt_center" headers="stat_0">47 (16%)</td>
+<td class="gt_row gt_center" headers="stat_1">8 (21%)</td>
+<td class="gt_row gt_center" headers="stat_2">4 (14%)</td>
+<td class="gt_row gt_center" headers="stat_3">16 (17%)</td>
+<td class="gt_row gt_center" headers="stat_4">14 (20%)</td>
+<td class="gt_row gt_center" headers="stat_5">5 (9.1%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">mothert</td>
+<td class="gt_row gt_center" headers="stat_0">233 (81%)</td>
+<td class="gt_row gt_center" headers="stat_1">32 (82%)</td>
+<td class="gt_row gt_center" headers="stat_2">17 (59%)</td>
+<td class="gt_row gt_center" headers="stat_3">80 (84%)</td>
+<td class="gt_row gt_center" headers="stat_4">63 (90%)</td>
+<td class="gt_row gt_center" headers="stat_5">41 (75%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">scorewc</td>
+<td class="gt_row gt_center" headers="stat_0">65 (19)</td>
+<td class="gt_row gt_center" headers="stat_1">65 (17)</td>
+<td class="gt_row gt_center" headers="stat_2">60 (18)</td>
+<td class="gt_row gt_center" headers="stat_3">66 (20)</td>
+<td class="gt_row gt_center" headers="stat_4">65 (18)</td>
+<td class="gt_row gt_center" headers="stat_5">63 (17)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">scorepom</td>
+<td class="gt_row gt_center" headers="stat_0">69 (23)</td>
+<td class="gt_row gt_center" headers="stat_1">72 (20)</td>
+<td class="gt_row gt_center" headers="stat_2">65 (21)</td>
+<td class="gt_row gt_center" headers="stat_3">67 (26)</td>
+<td class="gt_row gt_center" headers="stat_4">71 (22)</td>
+<td class="gt_row gt_center" headers="stat_5">68 (22)</td>
+</tr>
+</tbody><tfoot class="gt_footnotes">
+<tr class="even">
+<td colspan="7" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span> n (%); Mean (SD)</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+</div>
+<p><strong>Comment:</strong></p>
+<p>The table provides a summary of the distribution of position, Norwegian mother tongue, score of working condition, and score of perceived good management across 5 nursing homes which includes 288 participants. The majority of staffs across all nursing homes hold permanent positions (84%) and have Norwegian as their mother tongue (81%). Nursing Home 5 has the highest proportion of permanent staff (91%), while Nursing Home 2 has the lowest proportion of Norwegian-speaking staff (59%). The mean scores for working conditions and perceived good management are ranging from 60 to 66 and 65 to 72 respectively, across the nursing homes. The table shows that the nursing homes have a predominantly permanent and Norwegian-speaking workforce.</p>
+</section>
+</section>
+<section id="data-visualization-methods" class="level1">
+<h1>Data Visualization Methods</h1>
+<section id="bar-plot" class="level2">
+<h2 class="anchored" data-anchor-id="bar-plot">Bar Plot</h2>
+<p>The bar plot is used to visualize the distribution of staff employment status and their Norwegian mother tongue status across the five nursing homes. This visualization helps identify the composition of the workforce in terms of permanent and intermediate employment status, as well as the prevalence of staff who speak Norwegian as their mother tongue.</p>
+<p>The <code>ggplot2</code> package was used to construct the bar plot, employing the <code>ggplot()</code> function to specify the dataset and aesthetic mappings. The <code>aes()</code> function mapped the <code>nhid</code> variable to the x-axis and the interaction between <code>status</code> and <code>mothert</code> to the fill aesthetic. To create side-by-side bars for each category combination of <code>status</code> and <code>mothert</code>, the <code>geom_bar()</code> function was utilized with the <code>position = "dodge"</code> argument. For clarity, the plot was customized with titles and labels using the <code>labs()</code> function to add a title and labels for the x-axis, y-axis, and fill legend. The <code>theme_minimal()</code> function was applied to give the plot a clean and simple appearance, while the <code>scale_fill_manual()</code> function was used to manually set the colors for the different fill categories, ensuring the plot is visually appealing and easy to interpret.</p>
+<section id="figure-1" class="level3">
+<h3 class="anchored" data-anchor-id="figure-1">Figure 1</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grouped bar plot for Position (status) and Norwegian Mother Tongue (mothert)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>grouped_bar_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nh_data, <span class="fu">aes</span>(<span class="at">x =</span> nhid, <span class="at">fill =</span> <span class="fu">interaction</span>(status, mothert))) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Employment Status and Norwegian Mother Tongue Across Nursing Homes"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Nursing Home"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Employment Status and Mother Tongue"</span>) <span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#F8766D"</span>, <span class="st">"#00BA38"</span>, <span class="st">"#619CFF"</span>, <span class="st">"#F564E3"</span>))</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Bar plot for nursing home counts</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>nursing_home_counts <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nh_data, <span class="fu">aes</span>(<span class="at">x =</span> nhid)) <span class="sc">+</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Participants Across Nursing Homes"</span>,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Nursing Home"</span>,</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the plots using patchwork</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>combined_plot1 <span class="ot">&lt;-</span> nursing_home_counts <span class="sc">/</span> grouped_bar_plot</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the combined plot</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(combined_plot1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Data-Visualization-Assignment_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Comment:</strong></p>
+<p>Figure 1 contains two bar plots stacked vertically. The top bar plot shows the total number of staff members (participants) in each nursing home. The bottom bar plot illustrates the distribution of staff employment status and their Norwegian mother tongue status across different nursing homes.</p>
+<p>Nursing Home 3 has the highest count of staff members, followed by Nursing Home 4. Nursing Home 1 and Nursing Home 5 have moderate counts, while Nursing Home 2 has the lowest count. There is a predominant presence of permanent staff with Norwegian as their mother tongue across all nursing homes. Nursing Home 3 has the highest count of permanent staff with Norwegian as their mother tongue. Intermediate staff without Norwegian as their mother tongue are relatively fewer in all nursing homes. The distribution in the graph shows that most staff members in these nursing homes are permanent and Norwegian-speaking, indicating a stable and linguistically homogenous workforce.</p>
+</section>
+</section>
+<section id="box-plot" class="level2">
+<h2 class="anchored" data-anchor-id="box-plot">Box Plot</h2>
+<p>The first box plot visualizes the distribution of the scores of working conditions across the five nursing homes. This plot aims to compare the central tendency and variability of working condition scores among the different nursing homes. The second box plot visualizes the distribution of the scores of perceived good management across the five nursing homes. This plot is designed to compare the central tendency and variability of management quality perceptions among different nursing homes.</p>
+<p>The <code>ggplot2</code> package was used to construct both box plots, with the <code>ggplot()</code> function employed to specify the dataset and aesthetic mappings. For the first box plot, the <code>aes()</code> function mapped <code>nhid</code> to the x-axis and <code>scorewc</code> to the y-axis, while for the second box plot, <code>nhid</code> was mapped to the x-axis and <code>scorepom</code> to the y-axis. The <code>geom_boxplot()</code> function was utilized to create the plots, displaying the distribution of working condition scores and management quality scores within each nursing home, respectively. Titles and labels were added using the <code>labs()</code> function to provide clear titles and axis labels, and the <code>theme_minimal()</code> function was applied to ensure a clean and professional appearance. Additionally, the <code>scale_fill_brewer()</code> function was used to apply a specific color palette to the boxes, enhancing visual differentiation between the nursing homes.</p>
+<section id="figure-2" class="level3">
+<h3 class="anchored" data-anchor-id="figure-2">Figure 2</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create box plot for Score of Working Condition</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>box_plot_wc <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nh_data, <span class="fu">aes</span>(<span class="at">x =</span> nhid, <span class="at">y =</span> scorewc, <span class="at">fill =</span> nhid)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Box Plot of Working Condition Scores by Nursing Home"</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Nursing Home"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Score of Working Condition"</span>) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create box plot for Score of Perceived Good Management</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>box_plot_pom <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nh_data, <span class="fu">aes</span>(<span class="at">x =</span> nhid, <span class="at">y =</span> scorepom, <span class="at">fill =</span> nhid)) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Box Plot of Perceived Good Management Scores by Nursing Home"</span>,</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Nursing Home"</span>,</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Score of Perceived Good Management"</span>) <span class="sc">+</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine both plots using patchwork</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>combined_plot2 <span class="ot">&lt;-</span> box_plot_wc <span class="sc">/</span> box_plot_pom</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the combined plot</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(combined_plot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Data-Visualization-Assignment_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Comment:</strong></p>
+<p>Figure 2 contains two box plots stacked vertically, each illustrating the distribution of scores across five nursing homes. The top box plot shows the distribution of the score of working conditions for each nursing home. The bottom box plot shows the distribution of the score of perceived good management for each nursing home.</p>
+<p>The median scores of working conditions center around 65 to 70 across nursing homes. Nursing Home 1 and Nursing Home 2 have lower median scores, suggesting that staff in these nursing homes perceive their working conditions to be less favorable compared to the other three nursing homes. Nursing Home 3 shows a broader spread of variability in scores. Outliers are present in Nursing Home 3, 4, and 5, indicating that there are individual staff members with different perceptions of working conditions compared to the majority.</p>
+<p>The median scores of perceived good management center around 70 to 75 across nursing homes. Nursing Home 2 and Nursing Home 5 have lower median scores, suggesting that staff in these nursing homes perceive management quality to be less favorable compared to the other three nursing homes. Outliers are present only in Nursing Home 5, indicating that most staff members’ perceptions of management quality are relatively consistent. While most nursing homes have similar median scores for perceived good management, Nursing Home 2 and Nursing Home 5 differ with lower median scores. This suggests potential areas for improvement in management practices in Nursing Home 2 and Nursing Home 5.</p>
+</section>
+</section>
+<section id="scatter-plot" class="level2">
+<h2 class="anchored" data-anchor-id="scatter-plot">Scatter Plot</h2>
+<p>The scatter plot aims to explore the relationship between the scores of working condition and perceived good management across the five nursing homes. This visualization helps identify correlations between these two variables and examines how this relationship varies by nursing home, staff position, and language status.</p>
+<p>The <code>ggplot2</code> package was used to construct the scatter plot. The <code>ggplot()</code> function was employed to specify the dataset and aesthetic mappings, with the <code>aes()</code> function mapping <code>scorewc</code> to the x-axis and <code>scorepom</code> to the y-axis, while <code>status</code> was mapped to the color aesthetic and <code>mothert</code> to the shape aesthetic. The <code>geom_point()</code> function was utilized to create the scatter plot, displaying individual data points representing staff members. Titles and labels were added using the <code>labs()</code> function to provide a clear title and axis labels. The <code>theme_minimal()</code> function was applied to ensure a clean and professional appearance, and the <code>facet_wrap()</code> function was used to create separate panels for each nursing home, allowing for a comparative view across all five nursing homes.</p>
+<section id="figure-3" class="level3">
+<h3 class="anchored" data-anchor-id="figure-3">Figure 3</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Colored scatter plot for Score of Working Condition vs. Score of Perceived Good Management</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>colored_scatter_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nh_data, <span class="fu">aes</span>(<span class="at">x =</span> scorewc, <span class="at">y =</span> scorepom, <span class="at">color =</span> nhid)) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Score of Working Condition vs. Score of Perceived Good Management Across Nursing Homes"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Score of Working Condition"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Score of Perceived Good Management"</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Nursing Home"</span>) <span class="sc">+</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the scatter plot</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(colored_scatter_plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Data-Visualization-Assignment_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Comment:</strong></p>
+<p>Figure 3 visualizes the relationship between the score of working conditions and the score of perceived good management across nursing homes, with each point representing an individual staff member’s scores.</p>
+<p>There is a general trend indicating a positive correlation between the scores of working conditions and perceived good management. Staff members who rate their working conditions highly also tend to rate management quality highly, and vice versa. The scores for both working conditions and perceived good management span almost the entire range from 0 to 100, suggesting a wide variety of perceptions among staff members across all nursing homes. The overall positive correlation suggests that improving working conditions could lead to better perceptions of management quality and vice versa. A few outliers are observed where scores are particularly high in the top-left and bottom-right corners. These outliers represent staff with significantly different perceptions compared to their peers</p>
+</section>
+<section id="figure-4" class="level3">
+<h3 class="anchored" data-anchor-id="figure-4">Figure 4</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nh_data, <span class="fu">aes</span>(<span class="at">x =</span> scorewc, <span class="at">y =</span> scorepom, <span class="at">color =</span> status, <span class="at">shape =</span> mothert)) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> nhid) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Score of Working Condition vs. Score of Perceived Good Management"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Score of Working Condition"</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Score of Perceived Good Management"</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Position"</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">"Norwegian Mother Tongue"</span>) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Data-Visualization-Assignment_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Comment:</strong></p>
+<p>Figure 4 visualizes the relationship between the score of working conditions and the score of perceived good management across five different nursing homes. The scatter plot is faceted by nursing home, with each subplot representing one of the five nursing homes.</p>
+<p>Higher scores in working conditions correlate with higher perceived management scores. Nursing Home 3 displays a diverse range of scores, indicating varied staff perceptions. Most staff members are in permanent positions in all nursing homes. Staff with Norwegian as their mother tongue are predominant across all nursing homes. There is consistency in high scores for both working conditions and management perceptions in Nursing Home 2, while other nursing homes show broader variability. These graphs suggest that while there is a general positive correlation between good working conditions and management perceptions, the extent of this correlation and the homogeneity of staff characteristics vary across different nursing homes.</p>
+</section>
+</section>
+</section>
+<section id="result-interpretation" class="level1">
+<h1>Result Interpretation</h1>
+<ol type="1">
+<li><p>The majority of staff across all nursing homes are in permanent positions, with most of them having Norwegian as their mother tongue. Nursing Home 3 and Nursing Home 5 have a more diverse staff composition in terms of language.</p></li>
+<li><p>Most nursing homes have median scores around 65-75, indicating generally favorable working conditions. Nursing Home 2 stands out with a lower median score of working condition, suggesting room for improvement in working conditions. Nursing Home 3 showing a broader spread of variability in working condition scores, indicating diverse perceptions among staff.</p></li>
+<li><p>The median scores for perceived good management show generally high median scores, around 70-75, across most nursing homes. However, Nursing Home 2 has a lower median score of perceived good management, suggesting that staff perceive management quality to be less favorable. Nursing Home 3 displaying more variability of perceived good management scores, indicating mixed perceptions.</p></li>
+<li><p>There is a positive correlation between working condition scores and perceived good management scores across all nursing homes.</p></li>
+</ol>
+</section>
+<section id="recommendations" class="level1">
+<h1>Recommendations</h1>
+<ol type="1">
+<li><p>Given the lower median scores for both working conditions and perceived good management, a focused effort should be made to understand and address the specific challenges faced by staff in Nursing Home 2. This could involve implementing targeted interventions to improve working conditions and management practices.</p></li>
+<li><p>The presence of intermediate staff with lower scores, especially in Nursing Home 2, indicates a need for better support and integration for these positions. Providing additional training could enhance their experience and performance.</p></li>
+</ol>
+</section>
+<section id="report-prepared-by" class="level1">
+<h1>Report Prepared By</h1>
+<ol type="1">
+<li><p>Muhammad Saufi bin Abdullah 22307048</p></li>
+<li><p>Hazlienor Binti Mohd Hatta 22307055</p></li>
+<li><p>Amalina Binti Asmail @ Ismail 22307044</p></li>
+<li><p>Mohamad Afiq Amsyar Bin Hamedin 23100003</p></li>
+<li><p>Tiong Wen Ning 22307078</p></li>
+</ol>
+</section>
+<section id="appendix" class="level1">
+<h1>Appendix</h1>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
