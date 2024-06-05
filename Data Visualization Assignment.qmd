@@ -2,7 +2,15 @@
 title: "Data Visualization Assignment"
 author: "DrPH Epidemiology 2023/2024"
 date: last-modified
-format: 
+    html:
+      toc: true
+      toc-title: Contents
+      toc-location: left
+      toc-depth: 3
+      toc-expand: 1
+    pdf:
+      toc: true
+      colorlinks: true
     docx: 
       toc: true
       toc-depth: 2
@@ -281,4 +289,4 @@ Higher scores in working conditions correlate with higher perceived management s
 R code used for data preparation, analysis, and visualization in this report has been published on Posit Connect. Additionally, the complete code and dataset are available on GitHub for reference and reproducibility. For access to the code and dataset, please visit:
 
 -   [Posit Connect](https://www.posit.co/products/connect/)
--   [GitHub Repository](https://github.com/your-repository-link)
+-   [GitHub Repository](https://github.com/drsaufi/Data-Visualization-Report.git)
