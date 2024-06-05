@@ -2,6 +2,7 @@
 title: "Data Visualization Assignment"
 author: "DrPH Epidemiology 2023/2024"
 date: last-modified
+format: 
     html:
       toc: true
       toc-title: Contents
@@ -36,8 +37,6 @@ The dataset comprises information from 288 participants distributed across five 
 -   Score of Working Condition (`scorewc`): Reflects staff members' perceptions of their working conditions, with higher scores indicating more favorable conditions.
 
 -   Score of Perceived Good Management (`scorepom`): Reflects staff members' perceptions of management quality, with higher scores indicating more favorable perceptions.
-
-![](Flowchart.png){fig-align="center"}
 
 ## Libraries
 
@@ -288,5 +287,5 @@ Higher scores in working conditions correlate with higher perceived management s
 
 R code used for data preparation, analysis, and visualization in this report has been published on Posit Connect. Additionally, the complete code and dataset are available on GitHub for reference and reproducibility. For access to the code and dataset, please visit:
 
--   [Posit Connect](https://www.posit.co/products/connect/)
+-   [Posit Connect](https://posit-connect.kk.usm.my/content/8f474ac1-9027-479e-bdf4-b6b8d6083bab/)
 -   [GitHub Repository](https://github.com/drsaufi/Data-Visualization-Report.git)

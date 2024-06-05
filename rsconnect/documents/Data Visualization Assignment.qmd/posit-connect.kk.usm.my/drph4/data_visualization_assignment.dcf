@@ -1,0 +1,14 @@
+name: data_visualization_assignment
+title: Data Visualization Assignment
+username: drph4
+account: drph4
+server: posit-connect.kk.usm.my
+hostUrl: https://posit-connect.kk.usm.my/__api__
+appId: 98
+bundleId: 109
+url: https://posit-connect.kk.usm.my/content/8f474ac1-9027-479e-bdf4-b6b8d6083bab/
+version: 1
+quarto_version: 1.4.553
+quarto_engines: knitr
+asMultiple: FALSE
+asStatic: FALSE
